@@ -3,38 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paragon Hotel & Suites | The Elite Standard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>Paragon Hotel & Suites | Luxury Redefined</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --gold: #C5A059;
-            --dark: #0F0F0F;
-            --light: #FFFFFF;
-            --grey: #F8F8F8;
-            --border: #eeeeee;
-        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2 { font-family: 'Playfair Display', serif; }
+        .hero-viewport { height: 60vh; } /* Mobile constraint as requested */
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
-        h1, h2, h3, .brand { font-family: 'Playfair Display', serif; }
-        a { text-decoration: none; color: inherit; }
+    <nav class="flex justify-between items-center p-6 bg-white shadow-sm sticky top-0 z-50">
+        <div class="text-2xl font-bold tracking-tighter">PARAGON <span class="text-amber-600">SUITES</span></div>
+        <div class="hidden md:flex gap-8 font-medium">
+            <a href="#wings">The Wings</a>
+            <a href="#amenities">Amenities</a>
+            <a href="#gallery">Gallery</a>
+        </div>
+        <button class="bg-black text-white px-6 py-2 rounded-full hover:bg-amber-600 transition">Book Now</button>
+    </nav>
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: fixed; top: 0; width: 100%; padding: 15px 5%;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 2000; background: rgba(15, 15, 15, 0.98); border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .brand { color: var(--gold); font-size: 1.4rem; font-weight: bold; letter-spacing: 2px; }
-        .hamburger { cursor: pointer; color: white; z-index: 2001; }
-        .nav-menu {
-            position: fixed; top: 0; right: -100%; width: 100%; height: 100vh;
-            background: var(--dark); padding: 100px 10%; display: flex; flex-direction: column;
-            gap: 25px; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1); z-index: 1999;
-        }
-        .nav-menu.active { right: 0; }
-        .nav-menu a { color: white; font-size: 2rem; border-bottom: 1px solid #222; padding-bottom: 10px; }
+    <section class="relative hero-viewport overflow-hidden bg-black text-white">
+        <div class="absolute inset-0 opacity-60">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover" alt="Hotel Exterior">
+        </div>
+        <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+            <h1 class="text-4xl md:text-6xl mb-4">Sophistication in Every Stay</h1>
+            <p class="text-lg max-w-lg">Experience luxury in our 48 curated suites across the North and West Wings.</p>
+        </div>
+    </section>
+
+    <section id="wings" class="py-20 px-6 max-w-6xl mx-auto">
+        <h2 class="text-3xl text-center mb-12">Our Wings</h2>
+        <div class="grid md:grid-cols-2 gap-10">
+            <div class="group cursor-pointer">
+                <div class="overflow-hidden rounded-xl mb-4 h-80 bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <h3 class="text-2xl font-semibold">North Wing</h3>
+                <p class="text-gray-600">24 Rooms. Proximity to the Club House and Pool.</p>
+            </div>
+            <div class="group cursor-pointer">
+                <div class="overflow-hidden rounded-xl mb-4 h-80 bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                </div>
+                <h3 class="text-2xl font-semibold">West Wing</h3>
+                <p class="text-gray-600">24 Rooms. Panoramic views and serene environment.</p>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>        .nav-menu a { color: white; font-size: 2rem; border-bottom: 1px solid #222; padding-bottom: 10px; }
 
         /* --- HERO --- */
         .hero {

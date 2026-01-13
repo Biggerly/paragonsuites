@@ -3,35 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paragon Hotel & Suites | The Height of Luxury</title>
+    <title>Paragon Hotel & Suites | Elite Hospitality</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --gold: #C5A059;
             --dark: #0F0F0F;
-            --light-grey: #F9F9F9;
-            --overlay: rgba(0, 0, 0, 0.5);
-            --glass: rgba(255, 255, 255, 0.05);
+            --light: #FFFFFF;
+            --grey: #F4F4F4;
+            --text-muted: #888;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--light-grey);
+            background-color: var(--light);
             color: var(--dark);
-            overflow-x: hidden;
-            zoom: 0.9; /* Adjusted for standard laptop pitch viewing */
+            line-height: 1.6;
         }
 
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        h1, h2, h3, .brand { font-family: 'Playfair Display', serif; }
 
-        /* --- HERO VIDEO SECTION --- */
+        /* --- MOBILE NAVIGATION & HAMBURGER --- */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2000;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .brand { color: var(--gold); font-size: 1.4rem; font-weight: bold; letter-spacing: 2px; }
+
+        .hamburger {
+            cursor: pointer;
+            color: white;
+            display: block;
+        }
+
+        .nav-menu {
+            position: fixed;
+            top: 0; right: -100%;
+            width: 80%; height: 100vh;
+            background: var(--dark);
+            padding: 100px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1999;
+        }
+
+        .nav-menu.active { right: 0; }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .nav-menu a:hover { color: var(--gold); }
+
+        /* --- HERO SECTION --- */
         .hero {
             position: relative;
-            height: 100vh;
-            width: 100%;
+            height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -43,381 +87,226 @@
         .hero-video {
             position: absolute;
             top: 50%; left: 50%;
-            min-width: 100%; min-height: 100%;
-            width: auto; height: auto;
             transform: translate(-50%, -50%);
+            min-width: 100%; min-height: 100%;
             z-index: -1;
             object-fit: cover;
         }
 
         .hero-overlay {
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.3), rgba(0,0,0,0.8));
-            z-index: 0;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
         }
 
-        .hero-content {
-            z-index: 1;
-            max-width: 900px;
-            padding: 20px;
-        }
+        .hero-content { z-index: 10; padding: 20px; }
+        .hero h1 { font-size: 3rem; margin-bottom: 15px; line-height: 1.1; }
+        .hero p { color: var(--gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 25px; }
 
-        .hero h1 { font-size: 5rem; margin-bottom: 20px; letter-spacing: -1px; }
-        .hero p { font-size: 1.2rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px; color: var(--gold); }
+        /* --- GLOBAL SECTION STYLES --- */
+        section { padding: 80px 5%; }
+        .label { color: var(--gold); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+        h2 { font-size: 2.2rem; margin-bottom: 25px; line-height: 1.2; }
 
-        /* --- NAVIGATION --- */
-        nav {
-            position: absolute;
-            top: 0; width: 100%;
-            padding: 30px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 10;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.8rem; font-weight: bold; }
-        .nav-links a { color: white; text-decoration: none; margin-left: 40px; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer;}
-
-        /* --- BUTTONS --- */
-        .btn {
-            padding: 15px 40px;
-            border: 1px solid var(--gold);
-            background: transparent;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: 0.4s;
-            font-size: 0.8rem;
-        }
-        .btn-filled { background: var(--gold); color: black; font-weight: bold; border: none; }
-        .btn:hover { background: var(--gold); color: black; }
-
-        /* --- SUITES SECTION --- */
-        .section { padding: 100px 10%; }
-        .section-title { text-align: center; margin-bottom: 60px; }
-        .section-title h2 { font-size: 3rem; margin-bottom: 10px; }
-        .section-title .divider { width: 60px; height: 3px; background: var(--gold); margin: 0 auto; }
-
-        .rooms-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .room-card {
-            background: white;
-            border-bottom: 4px solid transparent;
-            transition: 0.3s;
-            position: relative;
-        }
-        .room-card:hover { border-bottom: 4px solid var(--gold); transform: translateY(-10px); }
-
-        .room-img {
+        /* --- ABOUT SECTION --- */
+        .about-grid { display: grid; gap: 40px; }
+        .about-image {
             width: 100%; height: 350px;
-            background-size: cover; background-position: center;
+            background: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80') center/cover;
+            border-radius: 2px;
         }
 
-        .status-tag {
-            position: absolute; top: 20px; left: 20px;
-            background: rgba(0,0,0,0.8); color: #00FF88;
-            padding: 5px 15px; font-size: 0.7rem; border-radius: 20px;
-            display: flex; align-items: center; gap: 5px;
+        /* --- WHY CHOOSE US (CARDS) --- */
+        .why-sec { background: var(--grey); }
+        .icon-card {
+            background: white;
+            padding: 40px 30px;
+            margin-bottom: 20px;
+            border-bottom: 3px solid transparent;
+            transition: 0.3s;
         }
+        .icon-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .icon-box { color: var(--gold); margin-bottom: 20px; }
 
-        .room-info { padding: 30px; }
-        .room-info h3 { font-size: 1.5rem; margin-bottom: 15px; }
-        .room-price { color: var(--gold); font-weight: bold; font-size: 1.2rem; }
-
-        /* --- THE LOUNGE (Dark Mode) --- */
-        .lounge-sec {
-            background: var(--dark);
-            color: white;
+        /* --- ROOMS SECTION --- */
+        .room-scroll {
             display: flex;
-            align-items: center;
-            gap: 50px;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 20px;
+            scroll-snap-type: x mandatory;
+        }
+        .room-item {
+            min-width: 85%;
+            scroll-snap-align: start;
+            background: white;
+            border: 1px solid #eee;
+        }
+        .room-img { width: 100%; height: 250px; background-size: cover; position: relative;}
+        .room-tag { position: absolute; top: 15px; left: 15px; background: var(--dark); color: #00FF88; padding: 4px 12px; font-size: 0.7rem; border-radius: 40px;}
+        .room-meta { padding: 20px; }
+
+        /* --- FAQ SECTION --- */
+        .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+        .faq-q { font-weight: 600; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+
+        /* --- CTA FOOTER --- */
+        .footer-cta { background: var(--dark); color: white; text-align: center; }
+        .btn {
+            display: inline-block;
+            padding: 18px 35px;
+            background: var(--gold);
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            margin-top: 20px;
         }
 
-        .lounge-content { flex: 1; }
-        .lounge-img { flex: 1; height: 500px; background: url('https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&w=800&q=80'); background-size: cover; border: 10px solid var(--glass); }
-
-        /* --- MODAL (MODERN) --- */
-        .modal-overlay {
-            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.95); z-index: 1000; justify-content: center; align-items: center;
+        /* --- DESKTOP REFINEMENTS --- */
+        @media (min-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr 1fr; align-items: center; }
+            .room-scroll { overflow-x: hidden; display: grid; grid-template-columns: repeat(3, 1fr); }
+            .hero h1 { font-size: 5rem; }
+            .nav-menu { position: static; width: auto; height: auto; background: transparent; flex-direction: row; padding: 0; }
+            .hamburger { display: none; }
         }
-        .modal-content {
-            background: white; width: 80%; max-width: 1000px; padding: 50px; position: relative;
-        }
-        .close-btn { position: absolute; top: 20px; right: 20px; cursor: pointer; color: black; }
-
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">PARAGON</div>
-        <div class="nav-links">
-            <a onclick="openModal('suites')">Suites</a>
-            <a onclick="openModal('lounge')">The Lounge</a>
-            <a onclick="openModal('owner')">Admin</a>
-            <button class="btn btn-filled" onclick="openModal('book')">Book Direct</button>
+        <div class="brand">PARAGON</div>
+        <div class="hamburger" id="hamburger"><i data-lucide="menu"></i></div>
+        <div class="nav-menu" id="navMenu">
+            <a href="#about" onclick="toggleMenu()">About</a>
+            <a href="#rooms" onclick="toggleMenu()">Suites</a>
+            <a href="#why" onclick="toggleMenu()">Experience</a>
+            <a href="#faq" onclick="toggleMenu()">Inquiries</a>
+            <a href="#" class="btn" style="margin-top: 0;">Book Now</a>
         </div>
     </nav>
 
     <header class="hero">
-        <video autoplay muted loop class="hero-video">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-luxury-hotel-lobby-and-staircase-1215-large.mp4" type="video/mp4">
+        <video autoplay muted loop playsinline class="hero-video">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-slow-motion-of-a-luxury-hotel-room-4444-large.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <p>Welcome to Excellence</p>
-            <h1>Paragon Hotel & Suites</h1>
-            <div style="display: flex; gap: 20px; justify-content: center;">
-                <button class="btn btn-filled" onclick="openModal('book')">Secure Your Stay</button>
-                <button class="btn" onclick="openModal('lounge')">Explore The Lounge</button>
-            </div>
+            <p>Redefining Excellence</p>
+            <h1>A New Era of Luxury Awaits</h1>
+            <a href="#rooms" class="btn">View Collections</a>
         </div>
     </header>
 
-    <section class="section">
-        <div class="section-title">
-            <h2>Luxury Accommodations</h2>
-            <div class="divider"></div>
+    <section id="about">
+        <div class="about-grid">
+            <div class="about-image"></div>
+            <div>
+                <span class="label">The Paragon Story</span>
+                <h2>Elegance in Every Detail</h2>
+                <p>Located at the intersection of sophistication and comfort, Paragon Hotel & Suites is more than a destination—it’s a lifestyle. We have meticulously crafted an environment that caters to the needs of global business leaders and local socialites alike.</p>
+                <p style="margin-top: 15px; color: var(--text-muted);">From our bespoke concierge services to our curated art collection, every inch of Paragon reflects a commitment to absolute perfection.</p>
+            </div>
         </div>
+    </section>
 
-        <div class="rooms-grid">
-            <div class="room-card">
-                <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="status-tag"><i data-lucide="check-circle" size="14"></i> 4 Available</div>
-                <div class="room-info">
-                    <h3>Executive King Suite</h3>
-                    <p style="color: #777; font-size: 0.9rem; margin-bottom: 20px;">City view, Marble bathroom, Mini-bar.</p>
-                    <div class="room-price">₦145,000 / night</div>
+    <section class="why-sec" id="why">
+        <span class="label" style="text-align: center; display: block;">The Paragon Advantage</span>
+        <h2 style="text-align: center;">Why Choose Us</h2>
+        <div class="about-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <div class="icon-card">
+                <div class="icon-box"><i data-lucide="shield-check" size="40"></i></div>
+                <h3>Discreet Security</h3>
+                <p>Advanced surveillance and professional security personnel ensure your total privacy 24/7.</p>
+            </div>
+            <div class="icon-card">
+                <div class="icon-box"><i data-lucide="utensils" size="40"></i></div>
+                <h3>World-Class Dining</h3>
+                <p>Our chefs blend local flavors with international techniques to provide an unforgettable culinary journey.</p>
+            </div>
+            <div class="icon-card">
+                <div class="icon-box"><i data-lucide="zap" size="40"></i></div>
+                <h3>Seamless Connectivity</h3>
+                <p>Ultra-high-speed fiber internet throughout the property, ensuring you're always in control.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="rooms">
+        <span class="label">Accommodations</span>
+        <h2>The Suites</h2>
+        <div class="room-scroll">
+            <div class="room-item">
+                <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80');">
+                    <div class="room-tag">Instant Booking</div>
+                </div>
+                <div class="room-meta">
+                    <h3>Executive Standard</h3>
+                    <p style="color: var(--gold); font-weight: bold;">₦120,000 / night</p>
                 </div>
             </div>
-
-            <div class="room-card">
-                <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="status-tag" style="color: #FFCC00;"><i data-lucide="clock" size="14"></i> Only 1 Left</div>
-                <div class="room-info">
+            <div class="room-item">
+                <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=800&q=80');">
+                    <div class="room-tag" style="color: #FFB800;">High Demand</div>
+                </div>
+                <div class="room-meta">
                     <h3>Diplomatic Suite</h3>
-                    <p style="color: #777; font-size: 0.9rem; margin-bottom: 20px;">Private lounge area, 24/7 Butler service.</p>
-                    <div class="room-price">₦280,000 / night</div>
+                    <p style="color: var(--gold); font-weight: bold;">₦250,000 / night</p>
                 </div>
             </div>
-
-            <div class="room-card">
-                <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80');"></div>
-                <div class="status-tag"><i data-lucide="check-circle" size="14"></i> 2 Available</div>
-                <div class="room-info">
-                    <h3>Paragon Penthouse</h3>
-                    <p style="color: #777; font-size: 0.9rem; margin-bottom: 20px;">Top floor, Panoramic terrace, Jacuzzi.</p>
-                    <div class="room-price">₦550,000 / night</div>
+            <div class="room-item">
+                <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1591088398332-8a77d399a80c?auto=format&fit=crop&w=800&q=80');">
+                    <div class="room-tag">Exclusive</div>
+                </div>
+                <div class="room-meta">
+                    <h3>Presidential Wing</h3>
+                    <p style="color: var(--gold); font-weight: bold;">₦450,000 / night</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="section lounge-sec">
-        <div class="lounge-img"></div>
-        <div class="lounge-content">
-            <p style="color: var(--gold); letter-spacing: 3px; margin-bottom: 10px;">EXPERIENCE THE VIBE</p>
-            <h2 style="font-size: 3.5rem; margin-bottom: 25px;">The Lounge & Rooftop</h2>
-            <p style="line-height: 1.8; color: #ccc; margin-bottom: 30px;">
-                Where the elite meet. Our lounge features a world-class cocktail program, international DJs, and a cigar terrace designed for privacy and luxury.
-            </p>
-            <button class="btn" onclick="openModal('lounge')">View Drink Menu</button>
+    <section id="faq" style="background: white;">
+        <span class="label">Assistance</span>
+        <h2>Common Questions</h2>
+        <div class="faq-item">
+            <div class="faq-q"><span>Check-in and Check-out times?</span> <i data-lucide="plus"></i></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q"><span>Do you offer airport shuttle services?</span> <i data-lucide="plus"></i></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q"><span>Is the lounge open to non-residents?</span> <i data-lucide="plus"></i></div>
         </div>
     </section>
 
-    <div class="modal-overlay" id="modal-owner">
-        <div class="modal-content" style="background: #f4f4f4;">
-            <div class="close-btn" onclick="closeModals()"><i data-lucide="x"></i></div>
-            <h2 style="margin-bottom: 30px;">Real-Time Property Management</h2>
-            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
-                <div style="background: white; padding: 20px; border-radius: 10px;">
-                    <i data-lucide="trending-up" color="#C5A059"></i>
-                    <p style="font-size: 0.8rem; color: #888;">Daily Revenue</p>
-                    <h3 style="font-size: 2rem;">₦2.4M</h3>
-                </div>
-                <div style="background: white; padding: 20px; border-radius: 10px;">
-                    <i data-lucide="users" color="#C5A059"></i>
-                    <p style="font-size: 0.8rem; color: #888;">Active Guests</p>
-                    <h3 style="font-size: 2rem;">42</h3>
-                </div>
-                <div style="background: white; padding: 20px; border-radius: 10px;">
-                    <i data-lucide="door-closed" color="#C5A059"></i>
-                    <p style="font-size: 0.8rem; color: #888;">Occupancy</p>
-                    <h3 style="font-size: 2rem;">88%</h3>
-                </div>
-            </div>
-            <p style="margin-top: 40px; color: #666;">Sir, this dashboard allows you to manage the entire hotel from your phone while you're away.</p>
+    <section class="footer-cta">
+        <h2>Ready for the Paragon Experience?</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">Join our exclusive list for opening night invites.</p>
+        <div style="display: flex; justify-content: center; gap: 10px; max-width: 400px; margin: 0 auto;">
+            <input type="text" placeholder="Email Address" style="padding: 15px; border: none; flex: 1;">
+            <button class="btn" style="margin-top: 0;">Join</button>
         </div>
-    </div>
+        <p style="margin-top: 50px; font-size: 0.7rem; color: #444;">&copy; 2026 Paragon Hotel & Suites. All Rights Reserved.</p>
+    </section>
 
     <script>
         lucide.createIcons();
 
-        function openModal(id) {
-            document.getElementById('modal-' + id).style.display = 'flex';
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        function toggleMenu() {
+            navMenu.classList.toggle('active');
+            const icon = navMenu.classList.contains('active') ? 'x' : 'menu';
+            hamburger.innerHTML = `<i data-lucide="${icon}"></i>`;
+            lucide.createIcons();
         }
-        function closeModals() {
-            const modals = document.querySelectorAll('.modal-overlay');
-            modals.forEach(m => m.style.display = 'none');
-        }
+
+        hamburger.addEventListener('click', toggleMenu);
     </script>
-</body>
-    </html>              <p>Exclusive portal for members to access special rates and event bookings.</p>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <p>Paragon Hotel & Suites | Coming Soon</p>
-        <p style="font-size: 0.8rem; margin-top: 20px;"><a onclick="openModal('modal-owner')">ADMIN PORTAL ACCESS (DEMO)</a></p>
-    </footer>
-
-
-    <div class="modal-overlay" id="modal-booking">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModals()">&times;</span>
-            <h2 style="text-align: center;">Secure Your Stay</h2>
-            <p style="text-align: center; color: var(--accent-tan);">Best Rate Guaranteed when booking direct.</p>
-            
-            <div class="booking-form-mockup">
-                <div class="booking-row">
-                    <div>
-                        <label>Check-in</label>
-                        <input type="date">
-                    </div>
-                    <div>
-                        <label>Check-out</label>
-                        <input type="date">
-                    </div>
-                </div>
-                <label>Select Suite Type</label>
-                <select>
-                    <option>Executive Suite</option>
-                    <option>Premium Room</option>
-                    <option>Penthouse access</option>
-                </select>
-                <label>Guests</label>
-                <select>
-                    <option>2 Adults</option>
-                    <option>1 Adult</option>
-                </select>
-                <button class="btn-gold" style="width: 100%;">Check Availability (Demo)</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modal-suites">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModals()">&times;</span>
-            <h2>Unmatched Comfort</h2>
-            <p>We are currently finalizing the interiors of our world-class suites. The website will feature high-resolution 360° tours of every room category.</p>
-            <div style="background: #eee; height: 200px; display: flex; justify-content: center; align-items: center; margin: 20px 0; color: #999;">
-                [Placeholder for Professional Interior Photos/Virtual Tour]
-            </div>
-            <p>Features will include smart-room controls, premium bedding, and 24/7 concierge integration directly through this platform.</p>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modal-lounge">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModals()">&times;</span>
-            <h2 style="text-align: center; color: var(--accent-gold)">The Paragon Lounge</h2>
-            <p style="text-align: center;">Guests can scan a QR code at their table to view this live menu.</p>
-            
-            <h3>Signature Cocktails</h3>
-            <div class="lounge-menu-mockup">
-                <div class="menu-item"><span>The Paragon Gold</span> <span>₦8,500</span></div>
-                <div class="menu-item"><span>Lagos Twilight</span> <span>₦6,000</span></div>
-                <div class="menu-item"><span>Executive Sour</span> <span>₦7,500</span></div>
-                <div class="menu-item"><span>Blue Haze</span> <span>₦6,500</span></div>
-            </div>
-
-            <h3 style="margin-top: 30px;">Premium Bottles</h3>
-            <div class="lounge-menu-mockup">
-                <div class="menu-item"><span>Hennessy VSOP</span> <span>₦120k</span></div>
-                <div class="menu-item"><span>Azul Tequila</span> <span>₦350k</span></div>
-            </div>
-
-            <div style="text-align: center; margin-top: 30px;">
-                <button class="btn-gold">Reserve a VIP Table</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="modal-owner" style="background: rgba(34,34,34, 0.95);">
-        <div class="modal-content" style="border-top: 5px solid red; background: #f9f9f9;">
-            <span class="close-modal" onclick="closeModals()">&times;</span>
-            <h2>OWNER'S SNAPSHOT (DEMO VIEW)</h2>
-            <p>Sir, this is what you or your manager would see on your phone. Complete control over your asset.</p>
-
-            <div class="dashboard-grid">
-                <div class="dash-card">
-                    <span class="dash-label">Today's Revenue (Pending)</span>
-                    <span class="dash-num" style="color: green;">₦1.2M</span>
-                    <div style="font-size: 0.8rem; color: #777;">8 Direct Bookings today</div>
-                </div>
-                <div class="dash-card">
-                    <span class="dash-label">Current Occupancy</span>
-                    <span class="dash-num">65%</span>
-                    <div class="dash-chart-mockup">
-                        <div class="chart-bar" style="height: 65%; left: 10%;"></div>
-                        <div class="chart-bar" style="height: 40%; left: 40%; opacity: 0.5"></div>
-                        <div class="chart-bar" style="height: 80%; left: 70%; opacity: 0.5"></div>
-                    </div>
-                </div>
-                 <div class="dash-card">
-                    <span class="dash-label">Lounge Reservations</span>
-                    <span class="dash-num">14</span>
-                    <div style="font-size: 0.8rem; color: #777;">4 VIP Tables confirmed for tonight</div>
-                </div>
-            </div>
-
-            <h3 style="margin-top: 30px;">Recent Activity</h3>
-            <ul style="list-style: none; padding: 0; font-size: 0.9rem;">
-                <li style="padding: 10px; border-bottom: 1px solid #eee;">🟢 New Booking: Mr. Adebayo (Executive Suite) - Paid via Web</li>
-                <li style="padding: 10px; border-bottom: 1px solid #eee;">🟡 Lounge Inquiry: Birthday party for 20 pax (Pending)</li>
-                <li style="padding: 10px; border-bottom: 1px solid #eee;">🔴 Maintenance Alert: Room 204 AC check required</li>
-            </ul>
-        </div>
-    </div>
-
-
-    <script>
-        // Function to open a specific modal
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            modal.classList.add('active');
-            // Prevent body scrolling when modal is open
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Function to close all modals
-        function closeModals() {
-            const modals = document.querySelectorAll('.modal-overlay');
-            modals.forEach(modal => {
-                modal.classList.remove('active');
-            });
-            // Re-enable body scrolling
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal if clicking outside the content area
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                closeModals();
-            }
-        }
-    </script>
-
 </body>
 </html>

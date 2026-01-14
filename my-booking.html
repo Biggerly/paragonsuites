@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Suites | Paragon Hotel & Suites Uromi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --gold: #C5A059;
+            --dark: #0F0F0F;
+            --light: #FFFFFF;
+            --grey: #F8F8F8;
+            --border: #eeeeee;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: var(--dark); line-height: 1.6; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* --- SUB-HERO --- */
+        .page-header {
+            height: 50vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('IMG_20260113_073708_795.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        /* --- SUITE SECTION --- */
+        .suite-detail-section { padding: 100px 7%; }
+        
+        .suite-row {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            margin-bottom: 120px;
+            align-items: center;
+        }
+
+        .suite-image {
+            width: 100%;
+            height: 450px;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid var(--border);
+        }
+
+        .suite-info { width: 100%; }
+        .suite-info h2 { font-size: 2.8rem; margin-bottom: 20px; color: var(--dark); }
+        .price-tag { color: var(--gold); font-weight: 700; font-size: 1.4rem; margin-bottom: 20px; display: block; }
+        
+        .amenity-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 30px 0;
+            padding: 25px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .amenity-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #666; }
+        .amenity-item i { color: var(--gold); }
+
+        .btn { 
+            display: inline-block; 
+            padding: 18px 40px; 
+            background: var(--dark); 
+            color: var(--gold); 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover { background: var(--gold); color: var(--dark); }
+
+        @media (min-width: 900px) {
+            .suite-row { flex-direction: row; }
+            .suite-row.reverse { flex-direction: row-reverse; }
+            .suite-image, .suite-info { width: 50%; }
+        }
+
+        
+    .page-header {
+        height: 60vh; /* Increased height for a more dramatic look */
+        width: 100%;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                    url('IMG_20260113_073708_795.jpg') center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+
+    .header-reveal {
+        animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+
+/* Highlighting the active link */
+.desktop-nav a.active, 
+.nav-menu a.active {
+    color: var(--gold) !important;
+}
+
+/* Optional: Add a small gold dot under the active desktop link */
+@media (min-width: 900px) {
+    .desktop-nav a.active {
+        position: relative;
+    }
+    .desktop-nav a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5px;
+        height: 5px;
+        background: var(--gold);
+        border-radius: 50%;
+    }
+}
+
+.page-header {
+    height: 80vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-carousel {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+}
+
+.hero-slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.hero-slide.active { opacity: 1; }
+
+/* Navigation Buttons Styling */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: 0.3s;
+}
+
+.carousel-nav:hover {
+    background: var(--gold);
+    color: var(--dark);
+    border-color: var(--gold);
+}
+
+.prev { left: 30px; }
+.next { right: 30px; }
+
+@media (max-width: 768px) {
+    .carousel-nav { width: 40px; height: 40px; }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+}
+
+
+        body {zoom: 0.8;    }
+    </style>
+</head>
+<body>
+   <div class="top-bar">
+    <div class="top-bar-content">
+        <div class="top-left">
+            <a href="tel:+234800PARAGON" class="top-link">
+                <i data-lucide="phone" size="14"></i> +234 800 PARAGON
+            </a>
+        </div>
+        <div class="top-right">
+    <div style="display: flex; align-items: center; gap: 20px;">
+        <a href="my-booking.html" class="top-link sign-in-btn">
+            <i data-lucide="search" size="14"></i> Track My Stay
+        </a>
+
+        <div class="top-rating">
+            <div class="stars">
+                <i data-lucide="star" size="12" fill="#C5A059" stroke="#C5A059"></i>
+                <i data-lucide="star" size="12" fill="#C5A059" stroke="#C5A059"></i>
+                <i data-lucide="star" size="12" fill="#C5A059" stroke="#C5A059"></i>
+                <i data-lucide="star" size="12" fill="#C5A059" stroke="#C5A059"></i>
+                <i data-lucide="star-half" size="12" fill="#C5A059" stroke="#C5A059"></i>
+            </div>
+            <span class="rating-text">4.4 / 5</span>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+    <nav>
+    <div class="brand">PARAGON HOTEL</div>
+
+    <div class="desktop-nav">
+        <a href="about.html">The Hotel</a>
+        <a href="suites.html">Suites</a>
+        
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Experience <i data-lucide="chevron-down" size="16"></i></a>
+            <div class="dropdown-content">
+                <a href="clubhouse.html">Club & Bar</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="events.html">Events & Weddings</a>
+            </div>
+        </div>
+
+        <a href="my-booking.html">My Booking</a>
+
+        <a href="index.html#faq">Inquiries</a>
+         <button class="btn" 
+        onclick="window.location.href='booking.html'" 
+        style="margin-top: 0; padding: 10px 20px;">
+    Book A Room
+</button>
+    </div>
+
+    <div class="hamburger" id="menuToggle"><i data-lucide="menu"></i></div>
+
+    <div class="nav-menu" id="navMenu">
+        <a href="index.html">The Hotel</a>
+        <a href="suites.html">Suites</a>
+        <a href="clubhouse.html">Club & Bar</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="my-booking.html" style="color: var(--gold);">Track My Stay</a>
+        <a href="#faq">Inquiries</a>
+         <button class="btn" 
+        onclick="window.location.href='booking.html'" 
+        style="margin-top: 0; padding: 10px 20px;">
+    Book A Room
+</button>
+    </div>
+    </nav>
+
+   <header class="page-header">
+    <div class="hero-carousel">
+        <div class="hero-slide active" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('pic1.jpg');"></div>
+        <div class="hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('pic2.jpg');"></div>
+        <div class="hero-slide" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('IMG_20260113_073708_795.jpg');"></div>
+    </div>
+
+    <div class="header-reveal" style="position: relative; z-index: 10;">
+        <span style="text-transform: uppercase; letter-spacing: 6px; font-size: 0.9rem; color: var(--gold); font-weight: 600; display: block; margin-bottom: 10px;">
+            Accommodation
+        </span>
+        <h1 style="font-size: clamp(2.5rem, 8vw, 4.5rem); line-height: 1.1; color: white;">
+            World-Class Suites
+        </h1>
+        <div style="width: 60px; height: 3px; background: var(--gold); margin: 25px auto;"></div>
+    </div>
+
+    <button class="carousel-nav prev" id="prevSlide"><i data-lucide="chevron-left"></i></button>
+    <button class="carousel-nav next" id="nextSlide"><i data-lucide="chevron-right"></i></button>
+</header>
+
+    <section style="background: var(--dark); color: white; padding: 80px 7%; text-align: center;">
+    <span class="label" style="color: var(--gold);">The Paragon Standard</span>
+    <h2 style="color: white; margin-bottom: 40px;">Included in Every Stay</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px;">
+        <div>
+            <i data-lucide="shield-check" style="color: var(--gold); margin-bottom: 15px;"></i>
+            <h4>Armed Security</h4>
+            <p style="font-size: 0.8rem; color: #888;">24/7 Professional surveillance and perimeter patrol.</p>
+        </div>
+        <div>
+            <i data-lucide="zap" style="color: var(--gold); margin-bottom: 15px;"></i>
+            <h4>Uninterrupted Power</h4>
+            <p style="font-size: 0.8rem; color: #888;">Dual-grid backup systems for 100% AC uptime.</p>
+        </div>
+        <div>
+            <i data-lucide="utensils" style="color: var(--gold); margin-bottom: 15px;"></i>
+            <h4>Butler Service</h4>
+            <p style="font-size: 0.8rem; color: #888;">Personalized assistance for luggage and dining.</p>
+        </div>
+    </div>
+</section>
+
+
+    <section class="suite-detail-section">
+        
+        <div class="suite-row">
+            <div class="suite-image" style="background-image: url('IMG_20260113_073708_795.jpg');"></div>
+            <div class="suite-info">
+                <span class="price-tag">From ₦85,000 / Night</span>
+                <h2>Deluxe Executive</h2>
+                <p>Designed for the modern business traveler, our Deluxe Executive rooms provide a seamless blend of workspace and relaxation. Features a custom-carved mahogany desk and high-speed fiber connectivity.</p>
+                
+                <div class="amenity-list">
+                    <div class="amenity-item"><i data-lucide="maximize"></i> 32m² Space</div>
+                    <div class="amenity-item"><i data-lucide="wifi"></i> High-Speed WiFi</div>
+                    <div class="amenity-item"><i data-lucide="coffee"></i> Restaurant</div>
+                    <div class="amenity-item"><i data-lucide="tv"></i> 55" Smart TV</div>
+                </div>
+
+                <a href="booking.html" class="btn">Check Availability</a>
+            </div>
+        </div>
+
+        <div class="suite-row reverse">
+            <div class="suite-image" style="background-image: url('pic2.jpg');"></div>
+            <div class="suite-info">
+                <span class="price-tag">From ₦150,000 / Night</span>
+                <h2>Paragon Royal Suite</h2>
+                <p>The pinnacle of luxury in Uromi. Our Royal Suite offers a separate living area, an oversized soaking tub, and floor-to-ceiling views of the Agbor Road landscape. Experience true Edo hospitality.</p>
+                
+                <div class="amenity-list">
+                    <div class="amenity-item"><i data-lucide="users"></i> Up to 3 Guests</div>
+                    <div class="amenity-item"><i data-lucide="wind"></i> Climate Control</div>
+                    <div class="amenity-item"><i data-lucide="refrigerator"></i> Mini Bar</div>
+                    <div class="amenity-item"><i data-lucide="armchair"></i> Private Lounge Area</div>
+                </div>
+
+                <a href="booking.html" class="btn">Reserve This Suite</a>
+            </div>
+        </div>
+
+    </section>
+
+
+
+    <section class="newsletter" style="background: var(--grey); text-align: center; border-top: 1px solid var(--border);">
+    <h3>Join The Inner Circle</h3>
+    <p style="font-size: 0.9rem; margin-bottom: 25px;">Subscribe for exclusive offers and seasonal invitations.</p>
+    
+    <form action="https://api.web3forms.com/submit" method="POST" style="max-width: 500px; margin: 0 auto;">
+        
+        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+        
+        <input type="hidden" name="subject" value="New Paragon Inner Circle Subscriber">
+        
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+        <div style="display: flex; justify-content: center; gap: 10px;">
+            <input type="email" name="email" placeholder="Your Email Address" required 
+                   style="padding: 15px; border: 1px solid #ddd; flex: 1; outline: none;">
+            
+            <button type="submit" class="btn" style="margin-top: 0;">Subscribe</button>
+        </div>
+        
+        <div id="result" style="margin-top: 15px; font-size: 0.8rem; font-weight: 600;"></div>
+    </form>
+</section>
+
+
+    <footer>
+        <div class="brand">PARAGON HOTEL</div>
+        <p style="margin-top: 10px; color: #555;">The Height of Luxury & Leisure.</p>
+        <div class="social-links">
+            <i data-lucide="instagram"></i>
+            <i data-lucide="facebook"></i>
+            <i data-lucide="twitter"></i>
+        </div>
+        <p style="font-size: 0.7rem; color: #333;">&copy; 2026 Paragon Hotel & Suites. Designed for Excellence.</p>
+    </footer>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        const slides = document.querySelectorAll('.hero-slide');
+const nextBtn = document.getElementById('nextSlide');
+const prevBtn = document.getElementById('prevSlide');
+let currentSlide = 0;
+let slideInterval;
+
+function showSlide(index) {
+    slides[currentSlide].classList.remove('active');
+    currentSlide = (index + slides.length) % slides.length;
+    slides[currentSlide].classList.add('active');
+}
+
+function nextSlide() {
+    showSlide(currentSlide + 1);
+}
+
+function prevSlide() {
+    showSlide(currentSlide - 1);
+}
+
+// Button Listeners
+nextBtn.addEventListener('click', () => {
+    nextSlide();
+    resetTimer();
+});
+
+prevBtn.addEventListener('click', () => {
+    prevSlide();
+    resetTimer();
+});
+
+// Auto-play Timer
+function startTimer() {
+    slideInterval = setInterval(nextSlide, 5000);
+}
+
+function resetTimer() {
+    clearInterval(slideInterval);
+    startTimer();
+}
+
+// Initialize
+startTimer();
+lucide.createIcons();
+
+        const form = document.querySelector('form');
+const result = document.getElementById('result');
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const object = Object.fromEntries(formData);
+  const json = JSON.stringify(object);
+  result.innerHTML = "Sending...";
+
+    fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status == 200) {
+                result.style.color = "var(--gold)";
+                result.innerHTML = "Welcome to the Inner Circle. Please check your inbox.";
+            } else {
+                console.log(response);
+                result.innerHTML = json.message;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            result.innerHTML = "Something went wrong!";
+        })
+        .then(function() {
+            form.reset();
+            setTimeout(() => {
+                result.innerHTML = "";
+            }, 5000);
+        });
+});
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const isOpen = navMenu.classList.contains('active');
+            menuToggle.innerHTML = isOpen ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+            lucide.createIcons();
+        });
+
+
+     
+
+// Event Listeners for Buttons
+nextBtn.addEventListener('click', () => {
+    nextSlide();
+    resetTimer();
+});
+
+prevBtn.addEventListener('click', () => {
+    prevSlide();
+    resetTimer();
+});
+
+// Auto Scroll Logic
+function startTimer() {
+    autoScrollInterval = setInterval(nextSlide, 4000); // 4 Seconds
+}
+
+function resetTimer() {
+    clearInterval(autoScrollInterval);
+    startTimer();
+}
+
+// Initialize
+startTimer();
+
+// Handle Window Resize (re-calculates width)
+window.addEventListener('resize', updateGallery);
+
+        // FAQ Accordion Logic
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const header = item.querySelector('.faq-header');
+            header.addEventListener('click', () => {
+                // Close other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) otherItem.classList.remove('active');
+                });
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                menuToggle.innerHTML = '<i data-lucide="menu"></i>';
+                lucide.createIcons();
+            });
+        });
+    </script>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gallery | Paragon Hotel & Suites</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --gold: #C5A059; --dark: #0F0F0F; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--dark); font-family: 'Inter', sans-serif; color: white; overflow-x: hidden; }
+
+        /* Header */
+        .gallery-header { padding: 80px 7% 40px; text-align: center; }
+        .gallery-header h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--gold); }
+        .gallery-header p { text-transform: uppercase; letter-spacing: 5px; font-size: 0.8rem; color: #666; margin-top: 10px; }
+
+        /* Gallery Grid */
+        .gallery-container { padding: 0 7% 100px; column-count: 3; column-gap: 20px; }
+        
+        .gallery-item { position: relative; margin-bottom: 20px; break-inside: avoid; border-radius: 8px; overflow: hidden; cursor: pointer; transition: 0.4s; border: 1px solid #222; }
+        .gallery-item img { width: 100%; display: block; transition: 0.5s; filter: grayscale(30%); }
+        .gallery-item:hover img { transform: scale(1.05); filter: grayscale(0%); }
+        
+        /* Overlay on Hover */
+        .item-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); opacity: 0; transition: 0.3s; }
+        .gallery-item:hover .item-overlay { opacity: 1; }
+        .item-overlay span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); }
+
+        /* Lightbox (The Popup) */
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .lightbox.active { display: flex; }
+        .lightbox img { max-width: 90%; max-height: 80vh; border: 2px solid var(--gold); }
+        .close-lightbox { position: absolute; top: 30px; right: 40px; color: white; cursor: pointer; background: none; border: none; }
+
+        /* Navigation */
+        .nav-fixed { position: fixed; top: 0; width: 100%; padding: 20px 7%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(to bottom, var(--dark), transparent); }
+        .btn-back { color: white; text-decoration: none; font-size: 0.8rem; display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,255,255,0.2); padding: 8px 15px; border-radius: 50px; transition: 0.3s; }
+        .btn-back:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+
+        @media (max-width: 900px) { .gallery-container { column-count: 2; } }
+        @media (max-width: 600px) { .gallery-container { column-count: 1; } .gallery-header h1 { font-size: 2.5rem; } }
+
+        body {zoom:0.8;}
+    </style>
+</head>
+<body>
+
+    <nav class="nav-fixed">
+        <a href="index.html" class="btn-back"><i data-lucide="arrow-left" size="14"></i> Back to Hotel</a>
+        <div style="color: var(--gold); font-weight: bold; letter-spacing: 2px;">PARAGON</div>
+    </nav>
+
+    <header class="gallery-header">
+        <h1>Visual Excellence</h1>
+        <p>A Glimpse into the Elite Standard</p>
+    </header>
+
+    <div class="gallery-container">
+        <div class="gallery-item" onclick="openLightbox('pic1.jpg')">
+            <img src="pic1.jpg" alt="Luxury Suite">
+            <div class="item-overlay"><span>Executive Suites</span></div>
+        </div>
+
+        <div class="gallery-item" onclick="openLightbox('pic2.jpg')">
+            <img src="pic2.jpg" alt="The Clubhouse">
+            <div class="item-overlay"><span>The Clubhouse</span></div>
+        </div>
+
+        <div class="gallery-item" onclick="openLightbox('pic3.jpg')">
+            <img src="pic3.jpg" alt="Exterior">
+            <div class="item-overlay"><span>Paragon Architecture</span></div>
+        </div>
+
+        <div class="gallery-item" onclick="openLightbox('pic4.jpg')">
+            <img src="pic4.jpg" alt="Dining">
+            <div class="item-overlay"><span>Crystal Dining</span></div>
+        </div>
+
+        <div class="gallery-item" onclick="openLightbox('pic1.jpg')">
+            <img src="pic1.jpg" alt="Lifestyle">
+            <div class="item-overlay"><span>The Experience</span></div>
+        </div>
+
+        <div class="gallery-item" onclick="openLightbox('pic2.jpg')">
+            <img src="pic2.jpg" alt="Details">
+            <div class="item-overlay"><span>Attention to Detail</span></div>
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="close-lightbox"><i data-lucide="x" size="40"></i></button>
+        <img id="lightboxImg" src="" alt="Large View">
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightboxImg');
+            img.src = src;
+            lb.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Stop scrolling
+        }
+
+        function closeLightbox() {
+            const lb = document.getElementById('lightbox');
+            lb.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Enable scrolling
+        }
+    </script>
+</body>
+</html>

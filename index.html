@@ -306,6 +306,328 @@ nav {
         margin-left: 10px;
     }
     }
+    /* --- GALLERY PREVIEW --- */
+.gallery-preview {
+    padding: 60px 0;
+    background: var(--light);
+    overflow: hidden;
+}
+
+.gallery-container {
+    position: relative;
+    width: 100%;
+    height: 450px; /* Adjust based on preference */
+    overflow: hidden;
+}
+
+.gallery-track {
+    display: flex;
+    gap: 15px;
+    padding: 0 5%;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.gallery-item {
+    min-width: 80%; /* Shows partial next image */
+    height: 450px;
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--border);
+}
+
+/* Navigation Arrows */
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(15, 15, 15, 0.6);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: 0.3s;
+}
+
+.gallery-nav:hover {
+    background: var(--gold);
+    color: var(--dark);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+.gallery-footer {
+    text-align: center;
+    margin-top: 40px;
+}
+
+@media (min-width: 1024px) {
+    .gallery-item {
+        min-width: 60%; /* Three images partially visible */
+    }
+}
+
+/* --- LOCATION SECTION (DARK) --- */
+.location-section {
+    padding: 100px 7%;
+    background: var(--dark); /* Dark background */
+    color: white;
+}
+
+.location-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.location-content h2 {
+    margin-bottom: 20px;
+    color: white; /* Ensure heading is visible */
+}
+
+.location-content p {
+    color: rgba(255,255,255,0.7); /* Softer white for readability */
+}
+
+.contact-details {
+    margin: 40px 0;
+}
+
+.contact-item {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.contact-item i {
+    color: var(--gold);
+    flex-shrink: 0;
+}
+
+.contact-item h4 {
+    color: var(--gold); /* Gold subheaders for a premium look */
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.contact-item p {
+    font-size: 0.9rem;
+    color: #ccc; /* Light grey text */
+}
+
+/* Map Styling */
+.map-wrapper {
+    height: 450px;
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.1); /* Subtle border */
+    position: relative;
+    background: #111;
+}
+
+/* Dark Map Filter */
+.map-wrapper iframe {
+    filter: grayscale(1) invert(0.92) contrast(1.2); /* Makes the map dark/gold-friendly */
+}
+
+/* Desktop Layout */
+@media (min-width: 900px) {
+    .location-container {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .map-wrapper {
+        height: 550px;
+    }
+}
+
+/* --- ROOM CARD ENHANCEMENTS --- */
+.room-card {
+    display: block; /* Makes the entire anchor area clickable */
+    text-decoration: none;
+    color: inherit;
+    background: white;
+    border: 1px solid var(--border);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Clips the scaling image */
+    margin-bottom: 30px;
+}
+
+.room-card:hover {
+    transform: translateY(-10px); /* Lifts the card up */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.room-img {
+    transition: transform 0.5s ease;
+}
+
+.room-card:hover .room-img {
+    transform: scale(1.05); /* Subtle zoom effect on the photo */
+}
+
+.room-info h3 {
+    transition: color 0.3s;
+}
+
+.room-card:hover h3 {
+    color: var(--gold); /* Title turns gold on hover */
+}
+
+/* Added a "Book Now" text indicator */
+.book-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gold);
+    letter-spacing: 1px;
+}
+
+/* Ensure images don't break flex on desktop */
+@media (min-width: 1024px) {
+    .room-card {
+        flex: 1;
+        margin-bottom: 0;
+    }
+}
+
+.booking-benefits {
+    display: flex;
+    justify-content: space-around;
+    padding: 30px 7%;
+    background: var(--dark);
+    border-top: 1px solid #222;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.benefit-item {
+    color: #888;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.benefit-item i { color: var(--gold); }
+
+.top-rating {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.stars {
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+
+/* This makes the gold really pop against the black bar */
+.stars i {
+    display: block;
+    filter: drop-shadow(0 0 2px rgba(197, 160, 89, 0.2));
+}
+
+.rating-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Mobile Tweak: Ensure it doesn't get squashed */
+@media (max-width: 600px) {
+    .rating-text {
+        font-size: 0.6rem;
+    }
+    .stars {
+        gap: 1px;
+    }
+}
+
+/* --- TESTIMONIALS --- */
+.testimonials {
+    background: var(--grey);
+    padding: 100px 7%;
+}
+
+.testimonial-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 40px;
+    border: 1px solid var(--border);
+    position: relative;
+    transition: all 0.4s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+    border-color: var(--gold);
+}
+
+.quote-icon {
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.testimonial-card p {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.guest-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.guest-info strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--dark);
+}
+
+.guest-info span {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold);
+    font-weight: 600;
+}
+
+/* Desktop Layout */
+@media (min-width: 900px) {
+    .testimonial-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
                 
         body {zoom: 0.8;}
     </style>
@@ -320,15 +642,22 @@ nav {
             </a>
         </div>
         <div class="top-right">
-            <a href="login.html" class="top-link sign-in-btn">
-                <i data-lucide="user" size="14"></i> Sign In
-            </a>
+            <div class="top-rating">
+                <div class="stars">
+                    <i data-lucide="star" size="12" fill="#C5A059" stroke="#C5A059"></i>
+                    <i data-lucide="star" size="12" fill="#C5A059" stroke="#C5A059"></i>
+                    <i data-lucide="star" size="12" fill="#C5A059" stroke="#C5A059"></i>
+                    <i data-lucide="star" size="12" fill="#C5A059" stroke="#C5A059"></i>
+                    <i data-lucide="star-half" size="12" fill="#C5A059" stroke="#C5A059"></i>
+                </div>
+                <span class="rating-text">4.4 / 5 (242 Reviews)</span>
+            </div>
         </div>
     </div>
-    </div>
+</div>
 
     <nav>
-    <div class="brand">PARAGON</div>
+    <div class="brand">PARAGON HOTEL</div>
 
     <div class="desktop-nav">
         <a href="about.html">The Hotel</a>
@@ -362,6 +691,7 @@ nav {
     </nav>
 
     <header class="hero">
+      
         <video autoplay muted loop playsinline class="hero-video">
             <source src="VIDEO-HERO.mp4" type="video/mp4">
         </video>
@@ -381,6 +711,25 @@ nav {
     </div>
         </div>
     </header>
+
+    <section class="gallery-preview">
+    <div class="gallery-container" id="galleryContainer">
+        <div class="gallery-track" id="galleryTrack">
+            <div class="gallery-item" style="background-image: url('IMG_20260113_073708_795.jpg');"></div>
+            <div class="gallery-item" style="background-image: url('IMG_20260113_073708_795.jpg');"></div>
+            <div class="gallery-item" style="background-image: url('IMG_20260113_073708_795.jpg');"></div>
+            <div class="gallery-item" style="background-image: url('IMG_20260113_073708_795.jpg');"></div>
+            <div class="gallery-item" style="background-image: url('IMG_20260113_073708_795.jpg');"></div>
+        </div>
+
+        <button class="gallery-nav prev" id="prevBtn"><i data-lucide="chevron-left"></i></button>
+        <button class="gallery-nav next" id="nextBtn"><i data-lucide="chevron-right"></i></button>
+    </div>
+
+    <div class="gallery-footer">
+        <a href="gallery.html" class="btn btn-outline">See More Moments</a>
+    </div>
+</section>
 
     <section class="amenities">
         <div class="amenity-card">
@@ -413,29 +762,34 @@ nav {
     </section>
 
     <section id="suites" style="background: var(--grey);">
-        <span class="label">Stay With Us</span>
-        <h2>Our Collections</h2>
-        <div class="room-flex">
-            <div class="room-card">
-                <div class="room-img" style="background-image: url('IMG_20260113_073708_795.jpg');">
-                    <div class="room-price">₦85,000</div>
-                </div>
-                <div class="room-info">
-                    <h3>Deluxe Executive</h3>
-                    <p>Perfect for business travelers seeking focus and comfort.</p>
-                </div>
+    <span class="label">Stay With Us</span>
+    <h2>Our Collections</h2>
+    <div class="room-flex">
+        
+        <a href="booking.html" class="room-card">
+            <div class="room-img" style="background-image: url('IMG_20260113_073708_795.jpg');">
+                <div class="room-price">₦85,000</div>
             </div>
-            <div class="room-card">
-                <div class="room-img" style="background-image: url('pic2.jpg');">
-                    <div class="room-price">₦150,000</div>
-                </div>
-                <div class="room-info">
-                    <h3>Paragon Royal Suite</h3>
-                    <p>Expansive living space with premium city views.</p>
-                </div>
+            <div class="room-info">
+                <h3>Deluxe Executive</h3>
+                <p>Perfect for business travelers seeking focus and comfort.</p>
+                <span class="book-link">Book Now <i data-lucide="arrow-right" size="14"></i></span>
             </div>
-        </div>
-    </section>
+        </a>
+
+        <a href="booking.html" class="room-card">
+            <div class="room-img" style="background-image: url('pic2.jpg');">
+                <div class="room-price">₦150,000</div>
+            </div>
+            <div class="room-info">
+                <h3>Paragon Royal Suite</h3>
+                <p>Expansive living space with premium city views.</p>
+                <span class="book-link">Book Now <i data-lucide="arrow-right" size="14"></i></span>
+            </div>
+        </a>
+
+    </div>
+</section>
 
     <section class="lounge-dark" id="lounge">
         <span class="label">The Vibe</span>
@@ -447,6 +801,42 @@ nav {
         </div>
         <button class="btn" style="background: transparent; color: var(--gold); border: 1px solid var(--gold);">View Drink Menu</button>
     </section>
+
+<section class="testimonials">
+    <div class="testimonial-header">
+        <span class="label">Experiences</span>
+        <h2>Guest Stories from Uromi</h2>
+    </div>
+
+    <div class="testimonial-grid">
+        <div class="testimonial-card">
+            <div class="quote-icon"><i data-lucide="quote" size="24"></i></div>
+            <p>"The perfect rest stop on my way from Benin to Abuja. Finding this level of luxury right on Agbor Road was a pleasant surprise. Truly the pride of Edo."</p>
+            <div class="guest-info">
+                <strong>Hon. Kelvin E.</strong>
+                <span>Frequent Traveler</span>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="quote-icon"><i data-lucide="quote" size="24"></i></div>
+            <p>"Best hotel in the Uromi/Ogwa axis. The proximity to Ebele Market makes it so convenient for business, yet it stays incredibly quiet and secure inside."</p>
+            <div class="guest-info">
+                <strong>Mrs. Blessing A.</strong>
+                <span>Business Guest</span>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="quote-icon"><i data-lucide="quote" size="24"></i></div>
+            <p>"Paragon has set a new standard for hospitality in Edo State. The 24/7 power and security gave me total peace of mind during my stay."</p>
+            <div class="guest-info">
+                <strong>Engr. Williams</strong>
+                <span>Project Consultant</span>
+            </div>
+        </div>
+    </div>
+</section>
 
     <section id="faq">
         <span class="label">Support</span>
@@ -467,8 +857,74 @@ nav {
         </div>
     </section>
 
+    <section id="location" class="location-section">
+    <div class="location-container">
+        <div class="location-content">
+            <span class="label">Find Us</span>
+            <h2>Gateway to Uromi</h2>
+            <p>Conveniently situated along the Agbor Road, Paragon Hotel & Suites is the premier destination for travelers and locals alike, located directly opposite the vibrant Ebele Market in Ogwa.</p>
+            
+            <div class="contact-details">
+                <div class="contact-item">
+                    <i data-lucide="map-pin"></i>
+                    <div>
+                        <h4>Address</h4>
+                        <p>Uromi Agbor Road, Opp. Ebele Market, Ogwa, Edo State</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <i data-lucide="navigation"></i>
+                    <div>
+                        <h4>Key Landmarks</h4>
+                        <p>Opposite Ebele Market<br>Main Agbor-Uromi Expressway</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://www.google.com/maps/search/Ebele+Market+Ogwa+Uromi+Edo+State" target="_blank" class="btn btn-outline">
+                <i data-lucide="map" size="16"></i> Open in Google Maps
+            </a>
+        </div>
+
+        <div class="map-wrapper">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.34567!2d6.23456!3d6.71234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNDInNDQuNCJOIDbCsDE0JzA0LjQiRQ!5e0!3m2!1sen!2sng!4v1705200000000!5m2!1sen!2sng" 
+                width="100%" 
+                height="100%" 
+                style="border:0; filter: grayscale(1) invert(0.92) contrast(1.2);" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<section class="newsletter" style="background: var(--grey); text-align: center; border-top: 1px solid var(--border);">
+    <h3>Join The Inner Circle</h3>
+    <p style="font-size: 0.9rem; margin-bottom: 25px;">Subscribe for exclusive offers and seasonal invitations.</p>
+    
+    <form action="https://api.web3forms.com/submit" method="POST" style="max-width: 500px; margin: 0 auto;">
+        
+        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+        
+        <input type="hidden" name="subject" value="New Paragon Inner Circle Subscriber">
+        
+        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+        <div style="display: flex; justify-content: center; gap: 10px;">
+            <input type="email" name="email" placeholder="Your Email Address" required 
+                   style="padding: 15px; border: 1px solid #ddd; flex: 1; outline: none;">
+            
+            <button type="submit" class="btn" style="margin-top: 0;">Subscribe</button>
+        </div>
+        
+        <div id="result" style="margin-top: 15px; font-size: 0.8rem; font-weight: 600;"></div>
+    </form>
+</section>
+
+
     <footer>
-        <div class="brand">PARAGON</div>
+        <div class="brand">PARAGON HOTEL</div>
         <p style="margin-top: 10px; color: #555;">The Height of Luxury & Leisure.</p>
         <div class="social-links">
             <i data-lucide="instagram"></i>
@@ -482,6 +938,46 @@ nav {
         // Initialize Icons
         lucide.createIcons();
 
+        const form = document.querySelector('form');
+const result = document.getElementById('result');
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const formData = new FormData(form);
+  const object = Object.fromEntries(formData);
+  const json = JSON.stringify(object);
+  result.innerHTML = "Sending...";
+
+    fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+        .then(async (response) => {
+            let json = await response.json();
+            if (response.status == 200) {
+                result.style.color = "var(--gold)";
+                result.innerHTML = "Welcome to the Inner Circle. Please check your inbox.";
+            } else {
+                console.log(response);
+                result.innerHTML = json.message;
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            result.innerHTML = "Something went wrong!";
+        })
+        .then(function() {
+            form.reset();
+            setTimeout(() => {
+                result.innerHTML = "";
+            }, 5000);
+        });
+});
+
         // Mobile Menu Toggle
         const menuToggle = document.getElementById('menuToggle');
         const navMenu = document.getElementById('navMenu');
@@ -491,6 +987,63 @@ nav {
             menuToggle.innerHTML = isOpen ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
             lucide.createIcons();
         });
+
+
+        const track = document.getElementById('galleryTrack');
+const nextBtn = document.getElementById('nextBtn');
+const prevBtn = document.getElementById('prevBtn');
+const items = document.querySelectorAll('.gallery-item');
+
+let index = 0;
+let autoScrollInterval;
+
+function updateGallery() {
+    const itemWidth = items[0].getBoundingClientRect().width + 15; // Width + Gap
+    track.style.transform = `translateX(-${index * itemWidth}px)`;
+}
+
+function nextSlide() {
+    index++;
+    if (index >= items.length - 1) {
+        index = 0; // Loop back to start
+    }
+    updateGallery();
+}
+
+function prevSlide() {
+    index--;
+    if (index < 0) {
+        index = items.length - 2; // Go to end
+    }
+    updateGallery();
+}
+
+// Event Listeners for Buttons
+nextBtn.addEventListener('click', () => {
+    nextSlide();
+    resetTimer();
+});
+
+prevBtn.addEventListener('click', () => {
+    prevSlide();
+    resetTimer();
+});
+
+// Auto Scroll Logic
+function startTimer() {
+    autoScrollInterval = setInterval(nextSlide, 4000); // 4 Seconds
+}
+
+function resetTimer() {
+    clearInterval(autoScrollInterval);
+    startTimer();
+}
+
+// Initialize
+startTimer();
+
+// Handle Window Resize (re-calculates width)
+window.addEventListener('resize', updateGallery);
 
         // FAQ Accordion Logic
         const faqItems = document.querySelectorAll('.faq-item');

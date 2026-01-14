@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Selection | Paragon Hotel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <style>
+        :root { --gold: #C5A059; --dark: #0F0F0F; --grey: #F8F8F8; --border: #eeeeee; }
+        body { font-family: 'Inter', sans-serif; background: #fff; margin: 0; color: var(--dark); }
+        .nav-header { padding: 20px 7%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: white; z-index: 100; }
+        .back-btn { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--dark); font-weight: 600; font-size: 0.9rem; }
+        .hero-title { text-align: center; padding: 40px 7% 0; }
+        .hero-title h1 { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 10px; }
+        .building-tabs { display: flex; justify-content: center; gap: 15px; margin: 30px 0; }
+        .tab { padding: 12px 25px; border: 1px solid var(--gold); background: transparent; border-radius: 4px; cursor: pointer; font-weight: 600; transition: 0.3s; text-transform: uppercase; font-size: 0.8rem; }
+        .tab.active { background: var(--gold); color: white; }
+        .rooms-container { padding: 20px 7% 80px; display: none; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+        .rooms-container.active { display: grid; }
+        .room-node { border: 1px solid var(--border); padding: 25px 15px; text-align: center; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .room-node:hover { border-color: var(--gold); background: var(--grey); transform: translateY(-2px); }
+        .room-node span { font-size: 0.7rem; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+        .room-node h4 { margin: 8px 0 0; font-size: 1.1rem; }
+        .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); justify-content: center; align-items: center; }
+        .modal.active { display: flex; }
+        .modal-content { background: white; padding: 30px; width: 90%; max-width: 450px; border-radius: 12px; position: relative; }
+        .form-group { margin-bottom: 15px; }
+        label { font-size: 0.8rem; font-weight: 600; color: #666; display: block; margin-bottom: 5px; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-family: inherit; }
+        .btn-reserve { background: var(--dark); color: var(--gold); width: 100%; padding: 16px; border: none; font-weight: bold; margin-top: 15px; cursor: pointer; border-radius: 6px; text-transform: uppercase; }
+        .flatpickr-day.selected { background: var(--gold) !important; border-color: var(--gold) !important; }
+
+        body {zoom: 0.8;}
+    </style>
+</head>
+<body>
+
+    <nav class="nav-header">
+        <a href="suites.html" class="back-btn"><i data-lucide="arrow-left" size="18"></i> Back to Suites</a>
+        <div style="font-weight: 900; letter-spacing: 3px; font-size: 1.2rem;">PARAGON</div>
+    </nav>
+
+    <div class="hero-title">
+        <h1>Select Your Room</h1>
+        <div class="building-tabs">
+            <button class="tab active" id="btn-east" onclick="toggleBuilding('east')">East Wing</button>
+            <button class="tab" id="btn-south" onclick="toggleBuilding('south')">South Wing</button>
+        </div>
+    </div>
+
+    <div id="east-grid" class="rooms-container active"></div>
+    <div id="south-grid" class="rooms-container"></div>
+
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <span onclick="closeModal()" style="position:absolute; right:20px; top:20px; cursor:pointer;"><i data-lucide="x"></i></span>
+            <div style="margin-bottom: 20px;">
+                <span id="modalBuildingSub" style="color: var(--gold); font-size: 0.7rem; text-transform: uppercase; font-weight: bold;"></span>
+                <h2 id="modalRoomTitle" style="font-family:'Playfair Display'; margin: 5px 0 0;"></h2>
+            </div>
+
+            <form action="https://api.web3forms.com/submit" method="POST" id="mainBookingForm">
+                <input type="hidden" name="access_key" value="37ddeec6-bbbb-4140-badf-753187c4b622">
+                <input type="hidden" name="building" id="form-building">
+                <input type="hidden" name="room_selection" id="form-room">
+
+                <div class="form-group">
+                    <label>Intended Arrival Date</label>
+                    <input type="text" id="arrivalDate" name="arrival_date" placeholder="Select a date" required>
+                </div>
+
+                <div class="form-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div><label>Total Nights</label><input type="number" name="nights" min="1" required></div>
+                    <div><label>Guests</label><input type="number" name="guests" value="1" min="1"></div>
+                </div>
+
+                <div class="form-group"><label>Full Name</label><input type="text" name="guest_name" required></div>
+                <div class="form-group"><label>WhatsApp Number</label><input type="tel" name="whatsapp" required></div>
+                <div class="form-group"><label>Email Address</label><input type="email" name="email" required></div>
+
+                <button type="submit" class="btn-reserve">Request Availability</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDpw0GBRdiFtwRQrdlI8UYTFylIxdQKiKI",
+            authDomain: "paragon-suites.firebaseapp.com",
+            projectId: "paragon-suites",
+            storageBucket: "paragon-suites.firebasestorage.app",
+            messagingSenderId: "518430661427",
+            appId: "1:518430661427:web:329f8484a74fd524d87c46",
+            measurementId: "G-45BJNG4Y5W"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        lucide.createIcons();
+
+        // Attach functions to window so the HTML buttons can see them
+        window.toggleBuilding = (bld) => {
+            document.querySelectorAll('.rooms-container').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(`${bld}-grid`).classList.add('active');
+            document.getElementById(`btn-${bld}`).classList.add('active');
+        };
+
+        window.openModal = (building, room) => {
+            document.getElementById('bookingModal').classList.add('active');
+            document.getElementById('modalRoomTitle').innerText = `Room ${room}`;
+            document.getElementById('modalBuildingSub').innerText = `${building} Wing`;
+            document.getElementById('form-building').value = building;
+            document.getElementById('form-room').value = `Room ${room}`;
+
+            flatpickr("#arrivalDate", {
+                minDate: "today",
+                altInput: true,
+                altFormat: "F j, Y",
+                dateFormat: "Y-m-d",
+            });
+        };
+
+        window.closeModal = () => {
+            document.getElementById('bookingModal').classList.remove('active');
+        };
+
+        // Generate Rooms
+        const createRooms = () => {
+            ['east', 'south'].forEach(bld => {
+                const container = document.getElementById(`${bld}-grid`);
+                for (let i = 1; i <= 24; i++) {
+                    const roomNum = i < 10 ? `0${i}` : i;
+                    const card = document.createElement('div');
+                    card.className = 'room-node';
+                    card.onclick = () => window.openModal(bld, roomNum);
+                    card.innerHTML = `<span>${bld} building</span><h4>Room ${roomNum}</h4>`;
+                    container.appendChild(card);
+                }
+            });
+        };
+
+        // Firebase Sync
+        document.getElementById('mainBookingForm').addEventListener('submit', (e) => {
+            const formData = new FormData(e.target);
+            const bookingDetails = {
+                room: formData.get('room_selection'),
+                building: formData.get('building'),
+                arrival: formData.get('arrival_date'),
+                nights: formData.get('nights'),
+                guests: formData.get('guests'),
+                customer_name: formData.get('guest_name'),
+                whatsapp: formData.get('whatsapp'),
+                email: formData.get('email'),
+                status: "pending",
+                timestamp: new Date().toISOString()
+            };
+            const reservationsRef = ref(db, 'reservations');
+            push(reservationsRef, bookingDetails);
+        });
+
+        createRooms();
+    </script>
+</body>
+</html>

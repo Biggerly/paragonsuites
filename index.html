@@ -142,26 +142,104 @@ nav {
     .room-flex { display: flex; gap: 20px; }
     .hero h1 { font-size: 5rem; }
 }
+
+/* Dropdown Container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* The clickable/hoverable link */
+.dropbtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+/* Hidden Dropdown Menu */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: var(--dark);
+    min-width: 200px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.5);
+    z-index: 2100;
+    top: 100%;
+    left: 0;
+    border: 1px solid #333;
+    padding: 10px 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+/* Show on Hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Dropdown Links */
+.dropdown-content a {
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: none !important; /* Remove the mobile underline style */
+}
+
+.dropdown-content a:hover {
+    background-color: #1a1a1a;
+    color: var(--gold);
+    }
+                
         body {zoom: 0.8;}
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="brand">PARAGON</div>
-        <div class="hamburger" id="menuToggle"><i data-lucide="menu"></i></div>
-        <div class="nav-menu" id="navMenu">
-            <a href="about.html">The Hotel</a>
-            <a href="suites.html">Suites</a>
-            <a href="clubhouse.html">club & Bar</a>
-            <a href="#faq">Inquiries</a>
-            <button class="btn">Book A Room</button>
+    <div class="brand">PARAGON</div>
+
+    <div class="desktop-nav">
+        <a href="about.html">The Hotel</a>
+        <a href="suites.html">Suites</a>
+        
+        <div class="dropdown">
+            <a href="#" class="dropbtn">Experience <i data-lucide="chevron-down" size="16"></i></a>
+            <div class="dropdown-content">
+                <a href="clubhouse.html">Club & Bar</a>
+                <a href="dining.html">Fine Dining</a>
+                <a href="spa.html">Spa & Wellness</a>
+                <a href="events.html">Events & Weddings</a>
+            </div>
         </div>
+
+        <a href="#faq">Inquiries</a>
+        <button class="btn" style="margin-top: 0; padding: 10px 20px;">Book A Room</button>
+    </div>
+
+    <div class="hamburger" id="menuToggle"><i data-lucide="menu"></i></div>
+
+    <div class="nav-menu" id="navMenu">
+        <a href="about.html">The Hotel</a>
+        <a href="suites.html">Suites</a>
+        <a href="clubhouse.html">Club & Bar</a>
+        <a href="dining.html">Dining</a>
+        <a href="spa.html">Wellness</a>
+        <a href="#faq">Inquiries</a>
+        <button class="btn">Book A Room</button>
+    </div>
     </nav>
 
     <header class="hero">
         <video autoplay muted loop playsinline class="hero-video">
-            <source src="VID_20260113_151904.mp4" type="video/mp4">
+            <source src="VIDEO-HERO.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">

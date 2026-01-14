@@ -88,86 +88,135 @@
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    <div class="modal" id="successModal">
+    <div class="modal-content" style="text-align: center; padding: 40px 20px;">
+        <div style="background: #E6FFFA; color: #2C7A7B; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+            <i data-lucide="check-circle" size="32"></i>
+        </div>
+        <h2 style="font-family:'Playfair Display'; margin-bottom: 10px;">Request Sent!</h2>
+        <p style="color: #666; font-size: 0.9rem; margin-bottom: 25px;">
+            Thank you, <span id="successName" style="font-weight: 600;">Guest</span>. Our receptionist will contact you on WhatsApp shortly to confirm availability.
+        </p>
+        <button onclick="closeSuccessModal()" class="btn-reserve" style="background: var(--gold); color: white;">Great, Thank You</button>
+    </div>
+</div>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyDpw0GBRdiFtwRQrdlI8UYTFylIxdQKiKI",
-            authDomain: "paragon-suites.firebaseapp.com",
-            projectId: "paragon-suites",
-            storageBucket: "paragon-suites.firebasestorage.app",
-            messagingSenderId: "518430661427",
-            appId: "1:518430661427:web:329f8484a74fd524d87c46",
-            measurementId: "G-45BJNG4Y5W"
-        };
+ <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        lucide.createIcons();
+    // DOUBLE CHECK THIS URL IN YOUR FIREBASE CONSOLE!
+    const firebaseConfig = {
+        apiKey: "AIzaSyDpw0GBRdiFtwRQrdlI8UYTFylIxdQKiKI",
+        authDomain: "paragon-suites.firebaseapp.com",
+        databaseURL: "https://paragon-suites-default-rtdb.firebaseio.com/", 
+        projectId: "paragon-suites",
+        storageBucket: "paragon-suites.firebasestorage.app",
+        messagingSenderId: "518430661427",
+        appId: "1:518430661427:web:329f8484a74fd524d87c46",
+        measurementId: "G-45BJNG4Y5W"
+    };
 
-        // Attach functions to window so the HTML buttons can see them
-        window.toggleBuilding = (bld) => {
-            document.querySelectorAll('.rooms-container').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById(`${bld}-grid`).classList.add('active');
-            document.getElementById(`btn-${bld}`).classList.add('active');
-        };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    lucide.createIcons();
 
-        window.openModal = (building, room) => {
-            document.getElementById('bookingModal').classList.add('active');
-            document.getElementById('modalRoomTitle').innerText = `Room ${room}`;
-            document.getElementById('modalBuildingSub').innerText = `${building} Wing`;
-            document.getElementById('form-building').value = building;
-            document.getElementById('form-room').value = `Room ${room}`;
+    window.toggleBuilding = (bld) => {
+        document.querySelectorAll('.rooms-container').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(`${bld}-grid`).classList.add('active');
+        document.getElementById(`btn-${bld}`).classList.add('active');
+    };
 
-            flatpickr("#arrivalDate", {
-                minDate: "today",
-                altInput: true,
-                altFormat: "F j, Y",
-                dateFormat: "Y-m-d",
-            });
-        };
+    window.openModal = (building, room) => {
+        document.getElementById('bookingModal').classList.add('active');
+        document.getElementById('modalRoomTitle').innerText = `Room ${room}`;
+        document.getElementById('modalBuildingSub').innerText = `${building} Wing`;
+        document.getElementById('form-building').value = building;
+        document.getElementById('form-room').value = `Room ${room}`;
 
-        window.closeModal = () => {
-            document.getElementById('bookingModal').classList.remove('active');
-        };
-
-        // Generate Rooms
-        const createRooms = () => {
-            ['east', 'south'].forEach(bld => {
-                const container = document.getElementById(`${bld}-grid`);
-                for (let i = 1; i <= 24; i++) {
-                    const roomNum = i < 10 ? `0${i}` : i;
-                    const card = document.createElement('div');
-                    card.className = 'room-node';
-                    card.onclick = () => window.openModal(bld, roomNum);
-                    card.innerHTML = `<span>${bld} building</span><h4>Room ${roomNum}</h4>`;
-                    container.appendChild(card);
-                }
-            });
-        };
-
-        // Firebase Sync
-        document.getElementById('mainBookingForm').addEventListener('submit', (e) => {
-            const formData = new FormData(e.target);
-            const bookingDetails = {
-                room: formData.get('room_selection'),
-                building: formData.get('building'),
-                arrival: formData.get('arrival_date'),
-                nights: formData.get('nights'),
-                guests: formData.get('guests'),
-                customer_name: formData.get('guest_name'),
-                whatsapp: formData.get('whatsapp'),
-                email: formData.get('email'),
-                status: "pending",
-                timestamp: new Date().toISOString()
-            };
-            const reservationsRef = ref(db, 'reservations');
-            push(reservationsRef, bookingDetails);
+        flatpickr("#arrivalDate", {
+            minDate: "today",
+            altInput: true,
+            altFormat: "F j, Y",
+            dateFormat: "Y-m-d",
         });
+    };
 
-        createRooms();
-    </script>
+    window.closeModal = () => {
+        document.getElementById('bookingModal').classList.remove('active');
+    };
+
+    window.closeSuccessModal = () => {
+        document.getElementById('successModal').classList.remove('active');
+    };
+
+    const createRooms = () => {
+        ['east', 'south'].forEach(bld => {
+            const container = document.getElementById(`${bld}-grid`);
+            if(!container) return;
+            for (let i = 1; i <= 24; i++) {
+                const roomNum = i < 10 ? `0${i}` : i;
+                const card = document.createElement('div');
+                card.className = 'room-node';
+                card.onclick = () => window.openModal(bld, roomNum);
+                card.innerHTML = `<span>${bld} building</span><h4>Room ${roomNum}</h4>`;
+                container.appendChild(card);
+            }
+        });
+    };
+
+    const formEl = document.getElementById('mainBookingForm');
+    formEl.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(formEl);
+        const bookingDetails = {
+            room: formData.get('room_selection'),
+            building: formData.get('building'),
+            arrival: formData.get('arrival_date'),
+            nights: formData.get('nights'),
+            guests: formData.get('guests'),
+            customer_name: formData.get('guest_name'),
+            whatsapp: formData.get('whatsapp'),
+            email: formData.get('email'),
+            status: "pending",
+            timestamp: new Date().toISOString()
+        };
+
+        // 1. Try Firebase First
+        try {
+            const reservationsRef = ref(db, 'reservations');
+            await push(reservationsRef, bookingDetails);
+            console.log("Firebase Save Success");
+        } catch (dbError) {
+            console.error("Firebase Error Details:", dbError);
+            alert("Database Error: " + dbError.message);
+            return; // Stop if database fails so you don't lose the lead
+        }
+
+        // 2. Try Web3Forms
+        try {
+            const object = Object.fromEntries(formData);
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                body: JSON.stringify(object)
+            });
+
+            if (response.ok) {
+                document.getElementById('bookingModal').classList.remove('active');
+                document.getElementById('successName').innerText = formData.get('guest_name');
+                document.getElementById('successModal').classList.add('active');
+                formEl.reset();
+            }
+        } catch (err) {
+            alert("Email service error, but your booking was saved to the dashboard.");
+        }
+    });
+
+    createRooms();
+</script>
+    
 </body>
 </html>

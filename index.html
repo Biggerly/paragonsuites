@@ -255,6 +255,57 @@ nav {
         padding: 0 20px;
     }
     }
+
+    /* --- HERO BUTTONS LAYOUT --- */
+.hero-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Secondary "Ghost" Button */
+.btn-outline {
+    background: transparent !important;
+    border: 1px solid var(--gold) !important;
+    color: var(--gold) !important;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: var(--gold) !important;
+    color: var(--dark) !important;
+}
+
+/* Tertiary Link */
+.hero-links {
+    margin-top: 10px;
+}
+
+.link-gold {
+    color: var(--gold);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+/* Desktop Alignment */
+@media (min-width: 900px) {
+    .hero-btns {
+        flex-direction: row; /* Side by side on desktop */
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .hero-links {
+        margin-top: 0;
+        margin-left: 10px;
+    }
+    }
                 
         body {zoom: 0.8;}
     </style>
@@ -316,9 +367,18 @@ nav {
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <p>OPENING 2026</p>
-            <h1>Defining the Art of Hospitality</h1>
-            <a href="suites.html" class="btn">Discover Suites</a>
+    <p>OPENING 2026</p>
+    <h1>Defining the Art of Hospitality</h1>
+    
+    <div class="hero-btns">
+        <a href="booking.html" class="btn">Book A Room</a>
+        
+        <a href="suites.html" class="btn btn-outline">Discover Suites</a>
+        
+        <div class="hero-links">
+            <a href="offers.html" class="link-gold">View Special Offers</a>
+        </div>
+    </div>
         </div>
     </header>
 

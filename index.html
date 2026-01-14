@@ -628,6 +628,96 @@ nav {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
+/* Highlighting the active link */
+.desktop-nav a.active, 
+.nav-menu a.active {
+    color: var(--gold) !important;
+}
+
+/* Optional: Add a small gold dot under the active desktop link */
+@media (min-width: 900px) {
+    .desktop-nav a.active {
+        position: relative;
+    }
+    .desktop-nav a.active::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5px;
+        height: 5px;
+        background: var(--gold);
+        border-radius: 50%;
+    }
+}
+
+/* --- STICKY CONTACT BUTTONS --- */
+.floating-contact {
+    position: fixed;
+    bottom: 30px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 9999;
+}
+
+.float-btn {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+}
+
+.float-btn:hover {
+    transform: scale(1.1) translateY(-5px);
+}
+
+.float-whatsapp {
+    background: #25D366;
+}
+
+.float-email {
+    background: var(--gold);
+}
+
+/* Tooltip text */
+.float-btn::before {
+    content: attr(data-label);
+    position: absolute;
+    right: 70px;
+    background: var(--dark);
+    color: white;
+    padding: 5px 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.float-btn:hover::before {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .floating-contact { bottom: 20px; right: 20px; gap: 10px; }
+    .float-btn { width: 50px; height: 50px; }
+    .float-btn::before { display: none; } /* Hide labels on mobile to save space */
+}
                 
         body {zoom: 0.8;}
     </style>
@@ -673,20 +763,28 @@ nav {
             </div>
         </div>
 
-        <a href="#faq">Inquiries</a>
-        <button class="btn" style="margin-top: 0; padding: 10px 20px;">Book A Room</button>
+        <a href="index.html#faq">Inquiries</a>
+         <button class="btn" 
+        onclick="window.location.href='booking.html'" 
+        style="margin-top: 0; padding: 10px 20px;">
+    Book A Room
+</button>
     </div>
 
     <div class="hamburger" id="menuToggle"><i data-lucide="menu"></i></div>
 
     <div class="nav-menu" id="navMenu">
-        <a href="about.html">The Hotel</a>
+        <a href="index.html">The Hotel</a>
         <a href="suites.html">Suites</a>
         <a href="clubhouse.html">Club & Bar</a>
         <a href="dining.html">Dining</a>
         <a href="spa.html">Wellness</a>
         <a href="#faq">Inquiries</a>
-        <button class="btn">Book A Room</button>
+         <button class="btn" 
+        onclick="window.location.href='booking.html'" 
+        style="margin-top: 0; padding: 10px 20px;">
+    Book A Room
+</button>
     </div>
     </nav>
 
@@ -799,7 +897,11 @@ nav {
             <div class="lounge-box" style="background-image: url('pic3.jpg');"></div>
             <div class="lounge-box" style="background-image: url('pic4.jpg');"></div>
         </div>
-        <button class="btn" style="background: transparent; color: var(--gold); border: 1px solid var(--gold);">View Drink Menu</button>
+        <button class="btn" 
+        onclick="window.location.href='clubhouse.html'" 
+        style="background: transparent; color: var(--gold); border: 1px solid var(--gold); cursor: pointer;">
+    View Drink Menu
+</button>
     </section>
 
 <section class="testimonials">
@@ -933,6 +1035,17 @@ nav {
         </div>
         <p style="font-size: 0.7rem; color: #333;">&copy; 2026 Paragon Hotel & Suites. Designed for Excellence.</p>
     </footer>
+
+    <div class="floating-contact">
+    <a href="https://wa.me/2349132720329" target="_blank" class="float-btn float-whatsapp" data-label="Chat with Us">
+        <i data-lucide="message-circle" size="24"></i>
+    </a>
+    
+    <a href="mailto:reservations@paragonhotel.com" class="float-btn float-email" data-label="Send Email">
+        <i data-lucide="mail" size="24"></i>
+    </a>
+</div>
+
 
     <script>
         // Initialize Icons

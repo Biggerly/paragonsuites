@@ -197,11 +197,84 @@ nav {
     background-color: #1a1a1a;
     color: var(--gold);
     }
+
+        /* --- TOP BAR STYLE --- */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: #000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 3000; /* Must be higher than nav */
+    display: flex;
+    align-items: center;
+    padding: 0 5%;
+}
+
+.top-bar-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.top-link {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease;
+}
+
+.top-link:hover {
+    color: var(--gold);
+}
+
+.sign-in-btn {
+    font-weight: 600;
+}
+
+/* --- ADJUSTING THE MAIN NAV --- */
+nav {
+    top: 40px !important; /* This matches the height of the top-bar */
+}
+
+/* Move mobile menu down too */
+.nav-menu {
+    padding-top: 140px; /* Adjusted to account for both bars */
+}
+
+@media (max-width: 768px) {
+    .top-bar {
+        padding: 0 20px;
+    }
+    }
                 
         body {zoom: 0.8;}
     </style>
 </head>
 <body>
+
+    <div class="top-bar">
+    <div class="top-bar-content">
+        <div class="top-left">
+            <a href="tel:+234800PARAGON" class="top-link">
+                <i data-lucide="phone" size="14"></i> +234 800 PARAGON
+            </a>
+        </div>
+        <div class="top-right">
+            <a href="login.html" class="top-link sign-in-btn">
+                <i data-lucide="user" size="14"></i> Sign In
+            </a>
+        </div>
+    </div>
+    </div>
 
     <nav>
     <div class="brand">PARAGON</div>
@@ -276,7 +349,7 @@ nav {
         <span class="label">About Paragon Hotel</span>
         <h2>A Sanctuary of Sophistication</h2>
         <p>Paragon Hotel & Suites stands as a beacon of luxury. Designed for guests who demand excellence, we offer an unparalleled blend of modern aesthetics and traditional warmth.</p>
-        <div style="margin-top: 30px; height: 300px; width: 100%; background: url('IMG_20260113_073708_795.jpg') center/cover;"></div>
+        <div style="margin-top: 30px; height: 300px; width: 100%; background: url('pic1.jpg') center/cover;"></div>
     </section>
 
     <section id="suites" style="background: var(--grey);">
@@ -293,7 +366,7 @@ nav {
                 </div>
             </div>
             <div class="room-card">
-                <div class="room-img" style="background-image: url('IMG_20260113_073708_795.jpg');">
+                <div class="room-img" style="background-image: url('pic2.jpg');">
                     <div class="room-price">₦150,000</div>
                 </div>
                 <div class="room-info">
@@ -309,8 +382,8 @@ nav {
         <h2 style="color: white;">Lounge & Swimming Pool Bar</h2>
         <p>Unwind in our signature lounge, where the city’s finest cocktails meet an atmosphere of exclusive luxury.</p>
         <div class="lounge-grid">
-            <div class="lounge-box" style="background-image: url('IMG_20260113_073708_795.jpg');"></div>
-            <div class="lounge-box" style="background-image: url('IMG_20260113_073708_795.jpg');"></div>
+            <div class="lounge-box" style="background-image: url('pic3.jpg');"></div>
+            <div class="lounge-box" style="background-image: url('pic4.jpg');"></div>
         </div>
         <button class="btn" style="background: transparent; color: var(--gold); border: 1px solid var(--gold);">View Drink Menu</button>
     </section>
